@@ -1,4 +1,4 @@
-module moviego
+module github.com/cjsmo/cjsmo/moviego
 
 go 1.13
 
