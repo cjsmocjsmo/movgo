@@ -156,8 +156,8 @@ func removeFiles() {
 
 
 
-//SetUp is exported to main
-func SetUp() (ExStat int) {
+//MovSetUp is exported to main
+func MovSetUp() (ExStat int) {
 	//Start the timer
 	startTime := time.Now().Unix()
 	fmt.Printf("setup function has started at: %T", startTime)
