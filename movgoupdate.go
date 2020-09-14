@@ -72,8 +72,8 @@ func scanFileNames() {
 }
 
 var finished bool = false
-// UpdateMain needs to be exported
-func UpdateMain() (finished bool) {
+// MovUpdate needs to be exported
+func MovUpdate() (finished bool) {
 	scanFileNames()
 	finished = true
 	return
