@@ -13,8 +13,8 @@ import (
 	"github.com/globalsign/mgo"
 )
 
-//DBcon is exported for all our db connection objects
-func DBcon() *mgo.Session {
+//MovDBcon is exported for all our db connection objects
+func MovDBcon() *mgo.Session {
 	fmt.Println("Starting DB session")
 	s, err := mgo.Dial(os.Getenv("MEDIACENTER_MONGODB_ADDRESS"))
 	if err != nil {
@@ -52,7 +52,7 @@ func ProcessMovs(pAth string) {
 	fmt.Printf("\n\n THIS IS MOVPICPATH %s", movpicPath)
 	var MovI MOVI
 	MovI = GetMovieInfo(pAth, movpicPath)
-	ses := DBcon()
+	ses := MovDBcon()
 	defer ses.Close()
 	MTc := ses.DB("moviegobs").C("moviegobs")
 	err := MTc.Insert(&MovI)
@@ -72,7 +72,7 @@ func ProcessMovs(pAth string) {
 // 	TVShowI = getTvShowInfo(pAth, tvpicpath)
 
 	
-// 	ses := DBcon()
+// 	ses := MovDBcon()
 // 	defer ses.Close()
 // 	MTc := ses.DB("moviegobs").C("tvshows")
 // 	err := MTc.Insert(&TVShowI)
@@ -162,7 +162,7 @@ func MovSetUp() (ExStat int) {
 	startTime := time.Now().Unix()
 	fmt.Printf("setup function has started at: %T", startTime)
 	//Connect to the DB
-	sess := DBcon()
+	sess := MovDBcon()
 	err := sess.DB("moviegobs").DropDatabase()
 	if err != nil {
 		fmt.Println(err)

@@ -13,7 +13,7 @@ import (
 )
 
 func movNameInDbCheck(fn string) (result bool) {
-	sess := DBcon()
+	sess := MovDBcon()
 	defer sess.Close()
 	MTc := sess.DB("moviegobs").C("moviegobs")
 	b1 := bson.M{"filepath": fn}

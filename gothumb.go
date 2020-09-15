@@ -95,7 +95,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 		} else {
 			log.Printf("file %s stat error: %v", thumbpathone, err)
 		}
-		cmtses := DBcon()
+		cmtses := MovDBcon()
 		defer cmtses.Close()
 		CMTc := cmtses.DB("movbsthumb").C("movbsthumb")
 		err = CMTc.Insert(&ThumbINFO)
@@ -112,7 +112,7 @@ var NoArtList []string
 //FindPicPaths exported to setup
 func FindPicPaths(mpath string, noartpicpath string) (result string) {
 	_, _, movename, _ := myPathSplit(mpath)
-	Tses := DBcon()
+	Tses := MovDBcon()
 	defer Tses.Close()
 	MTc := Tses.DB("movbsthumb").C("movbsthumb")
 	b1 := bson.M{"movname": movename}
