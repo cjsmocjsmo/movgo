@@ -16,7 +16,7 @@ import (
 //DBcon is exported for all our db connection objects
 func DBcon() *mgo.Session {
 	fmt.Println("Starting DB session")
-	s, err := mgo.Dial(os.Getenv("MOVIEGOBS_MONGODB_ADDRESS"))
+	s, err := mgo.Dial(os.Getenv("MEDIACENTER_MONGODB_ADDRESS"))
 	if err != nil {
 		fmt.Println("this is dial err")
 		panic(err)
