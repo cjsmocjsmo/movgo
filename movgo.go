@@ -179,11 +179,11 @@ func MovSetUp() (ExStat int) {
 		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
 		fmt.Println("thumb dir populated \n files removed \n thumbs created")
 	}
-	err = filepath.Walk(os.Getenv("MOVIEGOBS_MOVIES_PATH"), myDirVisit)
+	err = filepath.Walk(os.Getenv("MEDIACENTER_MOVIES_PATH"), myDirVisit)
 	if err != nil {
 		fmt.Println(err)
 	}
-	os.Setenv("MOVIEGOBS_SETUP", "0")
+	os.Setenv("MEDIACENTER_SETUP", "0")
 	fmt.Printf("this is noartlist :: %s", NoArtList)
 	fmt.Println(startTime)
 	stopTime := time.Now().Unix()
