@@ -182,7 +182,11 @@ func MovSetUp() (ExStat int) {
 		posters, _ := filepath.Glob("/root/fsData/Posters2")
 		thumbs, _ := filepath.Glob("/root/fsData/Thumbnails")
 		lp := len(posters)
+		lpp := strconv.Itoa(lp)
 		lt := len(thumbs)
+		ltt := strconv.Itoa(lt)
+		fmt.Printf("this is lp %s", lpp)
+		fmt.Printf("this is lt %s", ltt)
 		if lp != lt {
 			removeFiles()
 			filepath.Walk("/root/fsData/Posters2", posterdirVisit)
