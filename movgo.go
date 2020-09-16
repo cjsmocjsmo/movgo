@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"strconv"
 	"log"
 	"os"
 	"path"
@@ -159,8 +160,10 @@ func removeFiles() {
 //MovSetUp is exported to main
 func MovSetUp() (ExStat int) {
 	//Start the timer
-	startTime := time.Now().Unix()
-	fmt.Printf("setup function has started at: %T", startTime)
+	starttime := time.Now().Unix()
+	startTime2 := strconv.FormatInt(starttime, 10)
+	// starttime := strconv.Itoa(s)
+	fmt.Printf("setup function has started at: %s", startTime2)
 	//Connect to the DB
 	sess := MovDBcon()
 	err := sess.DB("moviegobs").DropDatabase()
@@ -185,10 +188,10 @@ func MovSetUp() (ExStat int) {
 	}
 	os.Setenv("MEDIACENTER_SETUP", "0")
 	fmt.Printf("this is noartlist :: %s", NoArtList)
-	fmt.Println(startTime)
+	fmt.Println(startTime2)
 	stopTime := time.Now().Unix()
 	fmt.Println(stopTime)
-	etime := stopTime - startTime
+	etime := stopTime - starttime
 	fmt.Println(etime)
 	fmt.Println("SETUP IS COMPLETE")
 	ExStat = 0
