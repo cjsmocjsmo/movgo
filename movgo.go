@@ -178,19 +178,8 @@ func MovSetUp() (ExStat int) {
 	if empty {
 		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
 	} else {
-		fmt.Println("thumb dir populated \n files removed \n thumbs created")
-		posters, _ := filepath.Glob("/root/fsData/Posters2")
-		thumbs, _ := filepath.Glob("/root/fsData/Thumbnails")
-		lp := len(posters)
-		lpp := strconv.Itoa(lp)
-		lt := len(thumbs)
-		ltt := strconv.Itoa(lt)
-		fmt.Printf("this is lp %s", lpp)
-		fmt.Printf("this is lt %s", ltt)
-		if lp != lt {
-			removeFiles()
-			filepath.Walk("/root/fsData/Posters2", posterdirVisit)
-		}
+		removeFiles()
+		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
 	}
 	err = filepath.Walk(os.Getenv("MEDIACENTER_MOVIES_PATH"), myDirVisit)
 	if err != nil {
