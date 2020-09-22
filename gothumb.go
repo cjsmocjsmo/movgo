@@ -62,23 +62,28 @@ func getThumbPath() (tpath string) {
 //CreateMoviesThumbnail exported to setup
 func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	dirpath, basepath, movname, ext := myPathSplit(p)
+	MSA := getServerAddr()
+	MSP := getServerPort()
+	MTPP := getThumbPath()
+	BP := "/" + url.QueryEscape(basepath)
+	thumbpathtwo := MSA + ":" + MSP + MTPP + BP
+	thumbpathone := "./static/" + basepath
 	ThumbINFO.ID = bson.NewObjectId()
 	ThumbINFO.MovName = movname
 	ThumbINFO.BasePath = basepath
 	ThumbINFO.DirPATH = dirpath
+	ThumbINFO.ThumbPathTwo = thumbpathtwo
+	ThumbINFO.ThumbPath = thumbpathone
+	ThumbINFO.ThumbID = UUID()
 
 	if ext == ".txt" {
-		fmt.Print("what the fuck a text file")
+		fmt.Print("what the fuck a text file remove it")
+		os.Remove(p)
+	} else if ext == ".srt" {
+		os.Remove(p)
 	} else {
-		MSA := getServerAddr()
-		MSP := getServerPort()
-		MTPP := getThumbPath()
-		BP := "/" + url.QueryEscape(basepath)
-		thumbpathtwo := MSA + ":" + MSP + MTPP + BP
-		ThumbINFO.ThumbPathTwo = thumbpathtwo
-		thumbpathone := "./static/" + basepath
-		ThumbINFO.ThumbPath = thumbpathone
-		ThumbINFO.ThumbID = UUID()
+
+
 		_, err := os.Stat(thumbpathone)
 		if err == nil {
 			log.Printf("FILE %s EXISTS", thumbpathone)

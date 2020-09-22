@@ -155,6 +155,43 @@ func removeFiles() {
     }
 }
 
+func posterTotal() int {
+	posters, _ := filepath.Glob("/root/fsData/Posters2/*.*")
+	posttotal := len(posters)
+	return posttotal
+}
+
+func thumbTotal() int {
+	thumb, _ := filepath.Glob("/root/fsData/Thumbnails/*.*")
+	thumbtotal := len(thumb)
+	return thumbtotal
+}
+	
+func picUpdateStatus() (updateStat bool) {
+	pt := posterTotal()
+	tt := thumbTotal()
+
+	lpp := strconv.Itoa(pt)
+	ltt := strconv.Itoa(tt)
+	fmt.Printf("this is lp %s", lpp)
+	fmt.Printf("this is lt %s", ltt)
+
+	if pt != tt {
+		updateStat = true
+	} else {
+		updateStat = false
+	}
+	return
+}
+	
+
+	// if posttotal != thumbtotal {
+	// 	removeFiles()
+	// 	filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+	// }
+
+
+
 
 
 //MovSetUp is exported to main
@@ -163,6 +200,8 @@ func MovSetUp() (ExStat int) {
 	starttime := time.Now().Unix()
 	startTime2 := strconv.FormatInt(starttime, 10)
 	// starttime := strconv.Itoa(s)
+
+
 	fmt.Printf("setup function has started at: %s", startTime2)
 	//Connect to the DB
 	sess := MovDBcon()
@@ -173,18 +212,30 @@ func MovSetUp() (ExStat int) {
 	err = sess.DB("movbsthumb").DropDatabase()
 	sess.Close()
 	fmt.Println("moviegobs and movbsthumb dbs have been dropped")
+
+
 	//Check thumbnail dir create thumbs if empty
 	empty, err := isDirEmpty("/root/static")
 	if empty {
 		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
 	} else {
-		removeFiles()
-		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+		if picUpdateStatus() {
+			removeFiles()
+			filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+		}
 	}
+
+
+
+
 	err = filepath.Walk(os.Getenv("MEDIACENTER_MOVIES_PATH"), myDirVisit)
 	if err != nil {
 		fmt.Println(err)
 	}
+
+
+
+
 	os.Setenv("MEDIACENTER_SETUP", "0")
 	fmt.Printf("this is noartlist :: %s", NoArtList)
 	fmt.Println(startTime2)
