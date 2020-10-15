@@ -36,7 +36,7 @@ func updateDirVisit(pAth string, f os.FileInfo, err error) error {
 	log.Printf("this is path: %s", pAth)
 	if err != nil {
 		fmt.Println(err) // can't walk here,
-		return nil // not a file.  ignore.
+		return nil       // not a file.  ignore.
 	}
 	if f.IsDir() {
 		return nil
@@ -72,6 +72,7 @@ func scanFileNames() {
 }
 
 var finished bool = false
+
 // MovUpdate needs to be exported
 func MovUpdate() (finished bool) {
 	scanFileNames()

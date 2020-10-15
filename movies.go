@@ -2,12 +2,12 @@ package movgo
 
 import (
 	// "fmt"
+	"gopkg.in/mgo.v2/bson"
 	"math/rand"
 	"path"
 	"strconv"
 	"strings"
 	"time"
-	"gopkg.in/mgo.v2/bson"
 )
 
 func getmovName(movname string) (movName string) {
@@ -59,7 +59,7 @@ type MOVI struct {
 
 // GetMovieInfo comment
 func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
-	filesystempath := "/media/pi/PiTB/media/" + apath[13:len(apath)]
+	filesystempath := "/media/pi/PiTB/media/" + apath[13:]
 	dirp, _ := path.Split(apath)
 	MovInfo.ID = bson.NewObjectId()
 	MovInfo.DirPath = dirp
@@ -70,51 +70,48 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 	MovInfo.ThumbPath = movpicInfo
 	MovInfo.MovYear = getMovieYear(apath)
 	switch {
-		case strings.Contains(apath, "SciFi"):
-			MovInfo.Catagory = "SciFi"
-		case strings.Contains(apath, "Cartoons"):
-			MovInfo.Catagory = "Cartoons"
-		case strings.Contains(apath, "Godzilla"):
-			MovInfo.Catagory = "Godzilla"
-		case strings.Contains(apath, "Kingsman"):
-			MovInfo.Catagory = "Kingsman"
-		case strings.Contains(apath, "StarTrek") && !strings.Contains(apath, " STTV "):
-			MovInfo.Catagory = "StarTrek"
-		case strings.Contains(apath, "StarWars"):
-			MovInfo.Catagory = "StarWars"
-		case strings.Contains(apath, "SuperHeros"):
-			MovInfo.Catagory = "SuperHeros"
-		case strings.Contains(apath, "IndianaJones"):
-			MovInfo.Catagory = "IndianaJones"
-		case strings.Contains(apath, "Action"):
-			MovInfo.Catagory = "Action"
-		case strings.Contains(apath, "Comedy"):
-			MovInfo.Catagory = "Comedy"
-		case strings.Contains(apath, "Drama"):
-			MovInfo.Catagory = "Drama"
-		case strings.Contains(apath, "JurassicPark"):
-			MovInfo.Catagory = "JurassicPark"
-		case strings.Contains(apath, "JohnWayne"):
-			MovInfo.Catagory = "JohnWayne"
-		case strings.Contains(apath, "JohnWick"):
-			MovInfo.Catagory = "JohnWick"
-		case strings.Contains(apath, "MenInBlack"):
-			MovInfo.Catagory = "MenInBlack"
-		case strings.Contains(apath, "HarryPotter"):
-			MovInfo.Catagory = "HarryPotter"
-		case strings.Contains(apath, "Tremors"):
-			MovInfo.Catagory = "Tremors"
-		case strings.Contains(apath, "Misc"):
-			MovInfo.Catagory = "Misc"
-		case strings.Contains(apath, "DieHard"):
-			MovInfo.Catagory = "DieHard"
-		case strings.Contains(apath, "Pirates"):
-			MovInfo.Catagory = "Pirates"
-		case strings.Contains(apath, "Fantasy"):
-			MovInfo.Catagory = "Fantasy"
+	case strings.Contains(apath, "SciFi"):
+		MovInfo.Catagory = "SciFi"
+	case strings.Contains(apath, "Cartoons"):
+		MovInfo.Catagory = "Cartoons"
+	case strings.Contains(apath, "Godzilla"):
+		MovInfo.Catagory = "Godzilla"
+	case strings.Contains(apath, "Kingsman"):
+		MovInfo.Catagory = "Kingsman"
+	case strings.Contains(apath, "StarTrek") && !strings.Contains(apath, " STTV "):
+		MovInfo.Catagory = "StarTrek"
+	case strings.Contains(apath, "StarWars"):
+		MovInfo.Catagory = "StarWars"
+	case strings.Contains(apath, "SuperHeros"):
+		MovInfo.Catagory = "SuperHeros"
+	case strings.Contains(apath, "IndianaJones"):
+		MovInfo.Catagory = "IndianaJones"
+	case strings.Contains(apath, "Action"):
+		MovInfo.Catagory = "Action"
+	case strings.Contains(apath, "Comedy"):
+		MovInfo.Catagory = "Comedy"
+	case strings.Contains(apath, "Drama"):
+		MovInfo.Catagory = "Drama"
+	case strings.Contains(apath, "JurassicPark"):
+		MovInfo.Catagory = "JurassicPark"
+	case strings.Contains(apath, "JohnWayne"):
+		MovInfo.Catagory = "JohnWayne"
+	case strings.Contains(apath, "JohnWick"):
+		MovInfo.Catagory = "JohnWick"
+	case strings.Contains(apath, "MenInBlack"):
+		MovInfo.Catagory = "MenInBlack"
+	case strings.Contains(apath, "HarryPotter"):
+		MovInfo.Catagory = "HarryPotter"
+	case strings.Contains(apath, "Tremors"):
+		MovInfo.Catagory = "Tremors"
+	case strings.Contains(apath, "Misc"):
+		MovInfo.Catagory = "Misc"
+	case strings.Contains(apath, "DieHard"):
+		MovInfo.Catagory = "DieHard"
+	case strings.Contains(apath, "Pirates"):
+		MovInfo.Catagory = "Pirates"
+	case strings.Contains(apath, "Fantasy"):
+		MovInfo.Catagory = "Fantasy"
 	}
 	return
 }
-
-
-

@@ -3,28 +3,28 @@ package movgo
 import (
 	"fmt"
 	//because I want it
+	"github.com/disintegration/imaging"
+	"github.com/globalsign/mgo/bson"
 	_ "image/jpeg"
 	_ "image/png"
 	"log"
 	"math/rand"
+	"net/url"
 	"os"
 	"path"
 	"strconv"
 	"time"
-	"net/url"
-	"github.com/disintegration/imaging"
-	"github.com/globalsign/mgo/bson"
 )
 
 //ThumbInFo struct exported to setup
 type ThumbInFo struct {
-	ID        bson.ObjectId `bson:"_id,omitempty"`
-	MovName   string        `bson:"movname"`
-	BasePath  string        `bson:"baspath"`
-	DirPATH   string        `bson:"dirpath"`
-	ThumbPath string        `bson:"thumbpath"`
-	ThumbID   string        `bson:"thumbid"`
-	ThumbPathTwo string `bson:"thumbpathtwo"`
+	ID           bson.ObjectId `bson:"_id,omitempty"`
+	MovName      string        `bson:"movname"`
+	BasePath     string        `bson:"baspath"`
+	DirPATH      string        `bson:"dirpath"`
+	ThumbPath    string        `bson:"thumbpath"`
+	ThumbID      string        `bson:"thumbid"`
+	ThumbPathTwo string        `bson:"thumbpathtwo"`
 }
 
 //UUID holds the unique identifier for the file
@@ -59,6 +59,7 @@ func getThumbPath() (tpath string) {
 	tpath = os.Getenv("MOVIEGOBS_THUMBNAIL_PIC_PATH")
 	return
 }
+
 //CreateMoviesThumbnail exported to setup
 func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	dirpath, basepath, movname, ext := myPathSplit(p)
@@ -82,7 +83,6 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	} else if ext == ".srt" {
 		os.Remove(p)
 	} else {
-
 
 		_, err := os.Stat(thumbpathone)
 		if err == nil {
@@ -138,4 +138,3 @@ func FindPicPaths(mpath string, noartpicpath string) (result string) {
 	fmt.Printf("this is result %s", result)
 	return
 }
-

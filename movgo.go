@@ -2,16 +2,16 @@ package movgo
 
 import (
 	"fmt"
+	"github.com/globalsign/mgo"
 	"io"
 	"io/ioutil"
-	"strconv"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
-	"time"
+	"strconv"
 	"strings"
-	"github.com/globalsign/mgo"
+	"time"
 )
 
 //MovDBcon is exported for all our db connection objects
@@ -68,11 +68,9 @@ func ProcessMovs(pAth string) {
 // 	var tvpicpath string
 // 	tvpicpath = FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
 
-
 // 	var TVShowI tVShowInfoS
 // 	TVShowI = getTvShowInfo(pAth, tvpicpath)
 
-	
 // 	ses := MovDBcon()
 // 	defer ses.Close()
 // 	MTc := ses.DB("moviegobs").C("tvshows")
@@ -120,7 +118,7 @@ func myDirVisit(pAth string, f os.FileInfo, err error) error {
 	log.Printf("this is path: %s", pAth)
 	if err != nil {
 		fmt.Println(err) // can't walk here,
-		return nil // not a file.  ignore.
+		return nil       // not a file.  ignore.
 	}
 	if f.IsDir() {
 		return nil
@@ -135,24 +133,23 @@ func myDirVisit(pAth string, f os.FileInfo, err error) error {
 		return err       // this is fatal.
 	}
 	switch {
-		case ext == ".mp4":
-			genMatch(pAth, matchedTV)
-		case ext == ".mkv":
-			genMatch(pAth, matchedTV)
-		case ext == ".avi":
-			genMatch(pAth, matchedTV)
-		case ext == ".m4v":
-			genMatch(pAth, matchedTV)
+	case ext == ".mp4":
+		genMatch(pAth, matchedTV)
+	case ext == ".mkv":
+		genMatch(pAth, matchedTV)
+	case ext == ".avi":
+		genMatch(pAth, matchedTV)
+	case ext == ".m4v":
+		genMatch(pAth, matchedTV)
 	}
 	return nil
 }
 
-
 func removeFiles() {
-    dir, _ := ioutil.ReadDir("/root/static")
-    for _, d := range dir {
-        os.RemoveAll(path.Join([]string{"tmp", d.Name()}...))
-    }
+	dir, _ := ioutil.ReadDir("/root/static")
+	for _, d := range dir {
+		os.RemoveAll(path.Join([]string{"tmp", d.Name()}...))
+	}
 }
 
 func posterTotal() int {
@@ -166,7 +163,7 @@ func thumbTotal() int {
 	thumbtotal := len(thumb)
 	return thumbtotal
 }
-	
+
 func picUpdateStatus() (updateStat bool) {
 	pt := posterTotal()
 	tt := thumbTotal()
@@ -183,16 +180,11 @@ func picUpdateStatus() (updateStat bool) {
 	}
 	return
 }
-	
 
-	// if posttotal != thumbtotal {
-	// 	removeFiles()
-	// 	filepath.Walk("/root/fsData/Posters2", posterdirVisit)
-	// }
-
-
-
-
+// if posttotal != thumbtotal {
+// 	removeFiles()
+// 	filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+// }
 
 //MovSetUp is exported to main
 func MovSetUp() (ExStat int) {
@@ -200,7 +192,6 @@ func MovSetUp() (ExStat int) {
 	starttime := time.Now().Unix()
 	startTime2 := strconv.FormatInt(starttime, 10)
 	// starttime := strconv.Itoa(s)
-
 
 	fmt.Printf("setup function has started at: %s", startTime2)
 	//Connect to the DB
@@ -213,7 +204,6 @@ func MovSetUp() (ExStat int) {
 	sess.Close()
 	fmt.Println("moviegobs and movbsthumb dbs have been dropped")
 
-
 	//Check thumbnail dir create thumbs if empty
 	empty, err := isDirEmpty("/root/static")
 	if empty {
@@ -225,16 +215,10 @@ func MovSetUp() (ExStat int) {
 		}
 	}
 
-
-
-
 	err = filepath.Walk(os.Getenv("MEDIACENTER_MOVIES_PATH"), myDirVisit)
 	if err != nil {
 		fmt.Println(err)
 	}
-
-
-
 
 	os.Setenv("MEDIACENTER_SETUP", "0")
 	fmt.Printf("this is noartlist :: %s", NoArtList)
