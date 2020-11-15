@@ -112,8 +112,8 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 		MovInfo.Catagory = "Pirates"
 	case strings.Contains(apath, "Fantasy"):
 		MovInfo.Catagory = "Fantasy"
-	case strings.Contains(apath, "X-Men"):
-		MovInfo.Catagory = "X-Men"
+	case strings.Contains(apath, "XMen"):
+		MovInfo.Catagory = "XMen"
 	case strings.Contains(apath, "TomCruize"):
 		MovInfo.Catagory = "TomCruize"
 	case strings.Contains(apath, "Riddick"):
