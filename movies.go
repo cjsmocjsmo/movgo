@@ -106,8 +106,8 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 		MovInfo.Catagory = "Tremors"
 	case strings.Contains(apath, "Misc"):
 		MovInfo.Catagory = "Misc"
-	case strings.Contains(apath, "DieHard"):
-		MovInfo.Catagory = "DieHard"
+	case strings.Contains(apath, "BruceWillis"):
+		MovInfo.Catagory = "BruceWillis"
 	case strings.Contains(apath, "Pirates"):
 		MovInfo.Catagory = "Pirates"
 	case strings.Contains(apath, "Fantasy"):
@@ -118,6 +118,10 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 		MovInfo.Catagory = "TomCruize"
 	case strings.Contains(apath, "Riddick"):
 		MovInfo.Catagory = "Riddick"
+	case strings.Contains(apath, "Documentary"):
+		MovInfo.Catagory = "Documentary"
+	case strings.Contains(apath, "TheRock"):
+		MovInfo.Catagory = "TheRock"
 	}
 	return
 }
