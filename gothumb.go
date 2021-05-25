@@ -18,13 +18,13 @@ import (
 
 //ThumbInFo struct exported to setup
 type ThumbInFo struct {
-	ID           bson.ObjectId `bson:"_id,omitempty"`
-	MovName      string        `bson:"movname"`
-	BasePath     string        `bson:"baspath"`
-	DirPATH      string        `bson:"dirpath"`
-	ThumbPath    string        `bson:"thumbpath"`
-	ThumbID      string        `bson:"thumbid"`
-	ThumbPathTwo string        `bson:"thumbpathtwo"`
+	ID            bson.ObjectId `bson:"_id,omitempty"`
+	MovName       string        `bson:"movname"`
+	BasePath      string        `bson:"baspath"`
+	DirPATH       string        `bson:"dirpath"`
+	ThumbPath     string        `bson:"thumbpath"`
+	ThumbID       string        `bson:"thumbid"`
+	HTTPThumbPath string 		`bson:"httpthumbpath"`
 }
 
 //UUID holds the unique identifier for the file
@@ -73,7 +73,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	ThumbINFO.MovName = movname
 	ThumbINFO.BasePath = basepath
 	ThumbINFO.DirPATH = dirpath
-	ThumbINFO.ThumbPathTwo = thumbpathtwo
+	ThumbINFO.HTTPThumbPath = thumbpathtwo
 	ThumbINFO.ThumbPath = thumbpathone
 	ThumbINFO.ThumbID = UUID()
 
