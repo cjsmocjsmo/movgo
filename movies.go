@@ -58,7 +58,7 @@ type MOVI struct {
 }
 
 // GetMovieInfo comment
-func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
+func GetMovieInfo(apath string, movpicInfo string, httpicInfo string) (MovInfo MOVI) {
 	filesystempath := "/media/pi/PiTB/media/" + apath[13:]
 	dirp, _ := path.Split(apath)
 	MovInfo.ID = bson.NewObjectId()
@@ -67,8 +67,8 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 	MovInfo.MediaID = moviesUUID()
 	MovInfo.Genre = "movies"
 	MovInfo.MovFSPath = filesystempath
-	MovInfo.ThumbPath = movpicInfo[0]
-	MovInfo.HTTPThumbPath = movpicInfo[1]
+	MovInfo.ThumbPath = movpicInfo
+	MovInfo.HTTPThumbPath = httppicInfo
 	
 	MovInfo.MovYear = getMovieYear(apath)
 	switch {

@@ -49,10 +49,10 @@ func ProcessMovs(pAth string) {
 	log.Println("Process_Movs has started")
 	var movpicPath string
 
-	movpicPath = FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
+	movpicPath, httppicpath = FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
 	fmt.Printf("\n\n THIS IS MOVPICPATH %s", movpicPath)
 	var MovI MOVI
-	MovI = GetMovieInfo(pAth, movpicPath)
+	MovI = GetMovieInfo(pAth, movpicPath, httppicpath)
 	ses := MovDBcon()
 	defer ses.Close()
 	MTc := ses.DB("moviegobs").C("moviegobs")
