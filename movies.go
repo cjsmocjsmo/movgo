@@ -53,7 +53,7 @@ type MOVI struct {
 	Catagory       string        `bson:"catagory"`
 	MovFSPath      string        `bson:"movfspath"`
 	ThumbPath      string        `bson:"thumbpath"`
-	CarosThumbPath string        `bson:"carosthumbpath"`
+	HTTPThumbPath  string		 `bson:"httpthumbpath"`
 	MovYear        string        `bson:"movyear"`
 }
 
@@ -67,7 +67,9 @@ func GetMovieInfo(apath string, movpicInfo string) (MovInfo MOVI) {
 	MovInfo.MediaID = moviesUUID()
 	MovInfo.Genre = "movies"
 	MovInfo.MovFSPath = filesystempath
-	MovInfo.ThumbPath = movpicInfo
+	MovInfo.ThumbPath = movpicInfo[0]
+	MovInfo.HTTPThumbPath = movpicInfo[1]
+	
 	MovInfo.MovYear = getMovieYear(apath)
 	switch {
 	case strings.Contains(apath, "SciFi"):
