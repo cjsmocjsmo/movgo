@@ -129,14 +129,15 @@ func FindPicPaths(mpath string, noartpicpath string) (result, result2 string) {
 	}
 	LenI := len(ThumbI)
 	// fmt.Printf("THIS IS THUMBI %s \n", ThumbI)
-	
+	// var result string
+	// var result2 string
 	if LenI == 0 {
 		NoArtList = append(NoArtList, mpath)
-		result := noartpicpath
-		result2 := noartpicpath
+		result = noartpicpath
+		result2 = noartpicpath
 	} else {
-		result := ThumbI[0]["thumbpath"]
-		result2 := ThumbI[0]["httpthumbpath"]
+		result = ThumbI[0]["thumbpath"]
+		result2 = ThumbI[0]["httpthumbpath"]
 	}
 	fmt.Printf("this is result %s", result)
 	return

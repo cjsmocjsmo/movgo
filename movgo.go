@@ -47,12 +47,13 @@ func isDirEmpty(name string) (bool, error) {
 //ProcessMovs is needed in update
 func ProcessMovs(pAth string) {
 	log.Println("Process_Movs has started")
-	var movpicPath string
+	// var movpicPath string
+	// var httppicPath string
 
-	movpicPath, httppicpath = FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
+	movpicPath, httppicPath := FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
 	fmt.Printf("\n\n THIS IS MOVPICPATH %s", movpicPath)
 	var MovI MOVI
-	MovI = GetMovieInfo(pAth, movpicPath, httppicpath)
+	MovI = GetMovieInfo(pAth, movpicPath, httppicPath)
 	ses := MovDBcon()
 	defer ses.Close()
 	MTc := ses.DB("moviegobs").C("moviegobs")
