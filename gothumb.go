@@ -113,7 +113,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 
 //NoArtList exported to setup
 var NoArtList []string
-
+//a comment
 //FindPicPaths exported to setup
 func FindPicPaths(mpath string, noartpicpath string) (string, string) {
 	_, _, movename, _ := myPathSplit(mpath)
