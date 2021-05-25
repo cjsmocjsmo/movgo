@@ -51,7 +51,7 @@ func getServerAddr() (addr string) {
 }
 
 func getServerPort() (port string) {
-	port = os.Getenv("MEDIACEMTER_SERVER_PORT")
+	port = os.Getenv("MEDIACENTER_SERVER_PORT")
 	return
 }
 
