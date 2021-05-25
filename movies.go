@@ -57,6 +57,12 @@ type MOVI struct {
 	MovYear        string        `bson:"movyear"`
 }
 
+// 
+// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movgo.go:52:14: undefined: httppicpath
+// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movgo.go:55:40: undefined: httppicpath
+// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movies.go:71:26: undefined: httppicInfo
+// 
+
 // GetMovieInfo comment
 func GetMovieInfo(apath string, movpicInfo string, httpicInfo string) (MovInfo MOVI) {
 	filesystempath := "/media/pi/PiTB/media/" + apath[13:]

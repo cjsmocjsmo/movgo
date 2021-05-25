@@ -115,7 +115,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 var NoArtList []string
 //a comment
 //FindPicPaths exported to setup
-func FindPicPaths(mpath string, noartpicpath string) (string, string) {
+func FindPicPaths(mpath string, noartpicpath string) (result, result2, string) {
 	_, _, movename, _ := myPathSplit(mpath)
 	Tses := MovDBcon()
 	defer Tses.Close()
@@ -140,5 +140,5 @@ func FindPicPaths(mpath string, noartpicpath string) (string, string) {
 		result2 = ThumbI[0]["httpthumbpath"]
 	}
 	fmt.Printf("this is result %s", result)
-	return result, result2
+	return
 }
