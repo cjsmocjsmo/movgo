@@ -46,17 +46,17 @@ func myPathSplit(myPath string) (DirPath string, BaseNAme string, MOvName string
 }
 
 func getServerAddr() (addr string) {
-	addr = os.Getenv("MOVIEGOBS_SERVER_ADDRESS")
+	addr = os.Getenv("MEDIACENTER_SERVER_ADDRESS")
 	return
 }
 
 func getServerPort() (port string) {
-	port = os.Getenv("MOVIEGOBS_SERVER_PORT")
+	port = os.Getenv("MEDIACEMTER_SERVER_PORT")
 	return
 }
 
 func getThumbPath() (tpath string) {
-	tpath = os.Getenv("MOVIEGOBS_THUMBNAIL_PIC_PATH")
+	tpath = os.Getenv("MEDIACENTER_THUMBNAIL_PIC_PATH")
 	return
 }
 
