@@ -9,7 +9,6 @@ import (
 	_ "image/png"
 	"log"
 	"math/rand"
-	"net/url"
 	"os"
 	"path"
 	"strconv"
