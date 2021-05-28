@@ -27,6 +27,7 @@ type ThumbInFo struct {
 }
 
 //UUID holds the unique identifier for the file
+// a comment
 func UUID() (UUID string) {
 	aSeed := time.Now()
 	aseed := aSeed.UnixNano()
