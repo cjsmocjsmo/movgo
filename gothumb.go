@@ -71,7 +71,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	// thumbpathone := "./static/" + basepath
 	var BP string = "/" + basepath
 	var thumbpathtwo string = MSA + ":" + MSP + MTPP + BP
-	var thumbpathone string = "/static/" + basepath
+	var thumbpathone string = "./static/" + basepath
 
 
 
