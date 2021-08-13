@@ -65,7 +65,7 @@ type MOVI struct {
 
 // GetMovieInfo comment
 func GetMovieInfo(apath string, movpicInfo string, httppicInfo string) (MovInfo MOVI) {
-	filesystempath := "/media/pi/PiTB/media/" + apath[13:]
+	filesystempath := "/media/pi/PiTB1/media/" + apath[13:]
 	dirp, _ := path.Split(apath)
 	MovInfo.ID = bson.NewObjectId()
 	MovInfo.DirPath = dirp
