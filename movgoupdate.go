@@ -12,24 +12,13 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
-func movNameInDbCheck(fn string) (result bool) {
-	sess := MovDBcon()
-	defer sess.Close()
-	MTc := sess.DB("moviegobs").C("moviegobs")
-	b1 := bson.M{"filepath": fn}
-	b2 := bson.M{"_Id": 0}
-	var PMedia []map[string]string
-	err := MTc.Find(b1).Select(b2).All(&PMedia)
+var finished bool = false
+
+func scanFileNames() {
+	err := filepath.Walk(os.Getenv("MOVIEGOBS_MOVIES_PATH"), updateDirVisit)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
 	}
-	num := len(PMedia)
-	if num != 0 {
-		result = true
-	} else {
-		result = false
-	}
-	return
 }
 
 func updateDirVisit(pAth string, f os.FileInfo, err error) error {
@@ -64,14 +53,33 @@ func updateDirVisit(pAth string, f os.FileInfo, err error) error {
 	return nil
 }
 
-func scanFileNames() {
-	err := filepath.Walk(os.Getenv("MOVIEGOBS_MOVIES_PATH"), updateDirVisit)
+func movNameInDbCheck(fn string) (result bool) {
+	sess := MovDBcon()
+	defer sess.Close()
+	MTc := sess.DB("moviegobs").C("moviegobs")
+	b1 := bson.M{"filepath": fn}
+	b2 := bson.M{"_Id": 0}
+	var PMedia []map[string]string
+	err := MTc.Find(b1).Select(b2).All(&PMedia)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
+	num := len(PMedia)
+	if num != 0 {
+		result = true
+	} else {
+		result = false
+	}
+	return
 }
 
-var finished bool = false
+// func ProcessMovs(fn string) {
+// 	isMovNameInDB := movNameInDbCheck(fn)
+// 	if !isMovNameInDB {
+		
+// 	}
+
+// }
 
 // MovUpdate needs to be exported
 func MovUpdate() (finished bool) {

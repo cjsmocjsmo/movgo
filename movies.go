@@ -10,18 +10,18 @@ import (
 	"time"
 )
 
-func getmovName(movname string) (movName string) {
-	_, fname := path.Split(movname)
-	if strings.Contains(fname, "(") {
-		fi := strings.Index(fname, "(")
-		fdex := fi - 1
-		movName = fname[:fdex]
-	} else {
-		ddex := len(fname) - 11
-		movName = fname[ddex:]
-	}
-	return
-}
+// func getmovName(movname string) (movName string) {
+// 	_, fname := path.Split(movname)
+// 	if strings.Contains(fname, "(") {
+// 		fi := strings.Index(fname, "(")
+// 		fdex := fi - 1
+// 		movName = fname[:fdex]
+// 	} else {
+// 		ddex := len(fname) - 11
+// 		movName = fname[ddex:]
+// 	}
+// 	return
+// }
 
 func getMovieYear(apath string) (movyr string) {
 	_, filename := path.Split(apath)

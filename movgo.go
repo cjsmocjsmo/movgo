@@ -82,8 +82,8 @@ func ProcessMovs(pAth string) {
 // 	return
 // }
 
-func posterdirVisit(posterpath string, f os.FileInfo, err error) error {
-	fmt.Printf("\n\n this is posterpath from posterdirvisit %s\n\n", posterpath)
+func PosterDirVisit(posterpath string, f os.FileInfo, err error) error {
+	fmt.Printf("\n\n this is posterpath from PosterDirVisit %s\n\n", posterpath)
 	ext := filepath.Ext(posterpath)
 	fmt.Printf("\n\n this is ext from posterdirvistit %s \n\n", ext)
 	if err != nil {
@@ -184,7 +184,7 @@ func picUpdateStatus() (updateStat bool) {
 
 // if posttotal != thumbtotal {
 // 	removeFiles()
-// 	filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+// 	filepath.Walk("/root/fsData/Posters2", PosterDirVisit)
 // }
 
 //MovSetUp is exported to main
@@ -208,11 +208,11 @@ func MovSetUp() (ExStat int) {
 	//Check thumbnail dir create thumbs if empty
 	empty, err := isDirEmpty("/root/static")
 	if empty {
-		filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+		filepath.Walk("/root/fsData/Posters2", PosterDirVisit)
 	} else {
 		if picUpdateStatus() {
 			removeFiles()
-			filepath.Walk("/root/fsData/Posters2", posterdirVisit)
+			filepath.Walk("/root/fsData/Posters2", PosterDirVisit)
 		}
 	}
 
