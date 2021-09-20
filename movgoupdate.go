@@ -34,26 +34,26 @@ func updateDirVisit(pAth string, f os.FileInfo, err error) error {
 	if ext == "" {
 		return nil //not a pic or movie
 	} else if ext == ".mp4" {
-		if !movNameInDbCheck(pAth) {
+		if !movNameInDb(pAth) {
 			ProcessMovs(pAth)
 		}
 	} else if ext == ".avi" {
-		if !movNameInDbCheck(pAth) {
+		if !movNameInDb(pAth) {
 			ProcessMovs(pAth)
 		}
 	} else if ext == ".mkv" {
-		if !movNameInDbCheck(pAth) {
+		if !movNameInDb(pAth) {
 			ProcessMovs(pAth)
 		}
 	} else if ext == ".m4v" {
-		if !movNameInDbCheck(pAth) {
+		if !movNameInDb(pAth) {
 			ProcessMovs(pAth)
 		}
 	}
 	return nil
 }
 
-func movNameInDbCheck(fn string) (result bool) {
+func movNameInDb(fn string) (result bool) {
 	sess := MovDBcon()
 	defer sess.Close()
 	MTc := sess.DB("moviegobs").C("moviegobs")
@@ -74,7 +74,7 @@ func movNameInDbCheck(fn string) (result bool) {
 }
 
 // func ProcessMovs(fn string) {
-// 	isMovNameInDB := movNameInDbCheck(fn)
+// 	isMovNameInDB := movNameInDb(fn)
 // 	if !isMovNameInDB {
 		
 // 	}
