@@ -1,11 +1,11 @@
 package movgo
 
 import (
-	"fmt"
+	"log"
 	"github.com/globalsign/mgo"
 	"io"
 	"io/ioutil"
-	"log"
+	// "log"
 	"os"
 	"path"
 	"path/filepath"
@@ -16,17 +16,17 @@ import (
 
 //MovDBcon is exported for all our db connection objects
 func MovDBcon() *mgo.Session {
-	fmt.Println("Starting DB session")
+	log.Println("Starting DB session")
 	s, err := mgo.Dial(os.Getenv("MEDIACENTER_MONGODB_ADDRESS"))
 	if err != nil {
-		fmt.Println("this is dial err")
+		log.Println("this is dial err")
 		panic(err)
 	}
 	return s
 }
 
 func isDirEmpty(name string) (bool, error) {
-	fmt.Printf("\n this is name from isDirEmpty %s \n", name)
+	log.Printf("\n this is name from isDirEmpty %s \n", name)
 	f, err := os.Open(name)
 	if err != nil {
 		return false, err
@@ -40,7 +40,7 @@ func isDirEmpty(name string) (bool, error) {
 	if err == io.EOF {
 		return true, nil
 	}
-	fmt.Println("isDirEmpty is complete")
+	log.Println("isDirEmpty is complete")
 	return false, err
 }
 
@@ -51,7 +51,7 @@ func ProcessMovs(pAth string) {
 	// var httppicPath string
 
 	movpicPath, httppicPath := FindPicPaths(pAth, os.Getenv("MOVIEGOBS_NO_ART_PIC_PATH"))
-	fmt.Printf("\n\n THIS IS MOVPICPATH %s", movpicPath)
+	log.Printf("\n\n THIS IS MOVPICPATH %s", movpicPath)
 	var MovI MOVI
 	MovI = GetMovieInfo(pAth, movpicPath, httppicPath)
 	ses := MovDBcon()
@@ -59,7 +59,7 @@ func ProcessMovs(pAth string) {
 	MTc := ses.DB("moviegobs").C("moviegobs")
 	err := MTc.Insert(&MovI)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	return
 }
@@ -77,22 +77,22 @@ func ProcessMovs(pAth string) {
 // 	MTc := ses.DB("moviegobs").C("tvshows")
 // 	err := MTc.Insert(&TVShowI)
 // 	if err != nil {
-// 		fmt.Println(err)
+// 		log.Println(err)
 // 	}
 // 	return
 // }
 
 func PosterDirVisit(posterpath string, f os.FileInfo, err error) error {
-	fmt.Printf("\n\n this is posterpath from PosterDirVisit %s\n\n", posterpath)
+	log.Printf("\n\n this is posterpath from PosterDirVisit %s\n\n", posterpath)
 	ext := filepath.Ext(posterpath)
-	fmt.Printf("\n\n this is ext from posterdirvistit %s \n\n", ext)
+	log.Printf("\n\n this is ext from posterdirvistit %s \n\n", ext)
 	if err != nil {
-		fmt.Println(err) // can't walk here,
+		log.Println(err) // can't walk here,
 		return nil       // but continue walking elsewhere
 	}
 	if f.IsDir() {
 		log.Println("fi its a dir")
-		fmt.Println(posterpath)
+		log.Println(posterpath)
 	} else if ext == ".txt" {
 		log.Printf("\n\n its a txt file %s", f)
 	} else if strings.Contains(posterpath, "TVShows") {
@@ -100,7 +100,7 @@ func PosterDirVisit(posterpath string, f os.FileInfo, err error) error {
 		// CreateTVShowsThumbnail(posterpath)
 	} else {
 		log.Println("\n starting createmoviesthumbnail this is posterpath")
-		fmt.Println(posterpath)
+		log.Println(posterpath)
 		CreateMoviesThumbnail(posterpath)
 	}
 	return nil
@@ -108,7 +108,7 @@ func PosterDirVisit(posterpath string, f os.FileInfo, err error) error {
 
 func genMatch(patH string, mtv bool) {
 	if mtv {
-		fmt.Println(patH)
+		log.Println(patH)
 		// processTVShow(patH)
 	} else {
 		ProcessMovs(patH)
@@ -118,7 +118,7 @@ func genMatch(patH string, mtv bool) {
 func myDirVisit(pAth string, f os.FileInfo, err error) error {
 	log.Printf("this is path: %s", pAth)
 	if err != nil {
-		fmt.Println(err) // can't walk here,
+		log.Println(err) // can't walk here,
 		return nil       // not a file.  ignore.
 	}
 	if f.IsDir() {
@@ -130,7 +130,7 @@ func myDirVisit(pAth string, f os.FileInfo, err error) error {
 	}
 	matchedTV, err := filepath.Match("*TVShows", f.Name())
 	if err != nil {
-		fmt.Println(err) // malformed pattern
+		log.Println(err) // malformed pattern
 		return err       // this is fatal.
 	}
 	switch {
@@ -171,8 +171,8 @@ func picUpdateStatus() (updateStat bool) {
 
 	lpp := strconv.Itoa(pt)
 	ltt := strconv.Itoa(tt)
-	fmt.Printf("this is lp %s", lpp)
-	fmt.Printf("this is lt %s", ltt)
+	log.Printf("this is lp %s", lpp)
+	log.Printf("this is lt %s", ltt)
 
 	if pt != tt {
 		updateStat = true
@@ -182,10 +182,17 @@ func picUpdateStatus() (updateStat bool) {
 	return
 }
 
-// if posttotal != thumbtotal {
-// 	removeFiles()
-// 	filepath.Walk("/root/fsData/Posters2", PosterDirVisit)
-// }
+
+func setupLogging() {
+	logfile := os.Getenv("MEDIACENTER_LOG_BASE_PATH") + "moviegobsMOVsetup.log"
+	// If the file doesn't exist, create it or append to the file
+	file, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.SetOutput(file)
+	log.Println("Mov logging started \n")
+}
 
 //MovSetUp is exported to main
 func MovSetUp() (ExStat int) {
@@ -194,16 +201,16 @@ func MovSetUp() (ExStat int) {
 	startTime2 := strconv.FormatInt(starttime, 10)
 	// starttime := strconv.Itoa(s)
 
-	fmt.Printf("setup function has started at: %s", startTime2)
+	log.Printf("setup function has started at: %s", startTime2)
 	//Connect to the DB
 	sess := MovDBcon()
 	err := sess.DB("moviegobs").DropDatabase()
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	err = sess.DB("movbsthumb").DropDatabase()
 	sess.Close()
-	fmt.Println("moviegobs and movbsthumb dbs have been dropped")
+	log.Println("moviegobs and movbsthumb dbs have been dropped")
 
 	//Check thumbnail dir create thumbs if empty
 	empty, err := isDirEmpty("/root/static")
@@ -218,17 +225,17 @@ func MovSetUp() (ExStat int) {
 
 	err = filepath.Walk(os.Getenv("MEDIACENTER_MOVIES_PATH"), myDirVisit)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	os.Setenv("MEDIACENTER_SETUP", "0")
-	fmt.Printf("this is noartlist :: %s", NoArtList)
-	fmt.Println(startTime2)
+	log.Printf("this is noartlist :: %s", NoArtList)
+	log.Println(startTime2)
 	stopTime := time.Now().Unix()
-	fmt.Println(stopTime)
+	log.Println(stopTime)
 	etime := stopTime - starttime
-	fmt.Println(etime)
-	fmt.Println("SETUP IS COMPLETE")
+	log.Println(etime)
+	log.Println("SETUP IS COMPLETE")
 	ExStat = 0
 	return
 }
