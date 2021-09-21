@@ -184,7 +184,7 @@ func picUpdateStatus() (updateStat bool) {
 
 
 func setupLogging() {
-	logfile := os.Getenv("MEDIACENTER_LOG_BASE_PATH") + "moviegobsMOVsetup.log"
+	logfile := os.Getenv("MEDIACENTER_LOG_BASE_PATH") + "/moviegobsMOV.log"
 	// If the file doesn't exist, create it or append to the file
 	file, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
