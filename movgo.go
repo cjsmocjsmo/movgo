@@ -1,10 +1,10 @@
 package movgo
 
 import (
-	"log"
 	"github.com/globalsign/mgo"
 	"io"
 	"io/ioutil"
+	"log"
 	// "log"
 	"os"
 	"path"
@@ -61,7 +61,6 @@ func ProcessMovs(pAth string) {
 	if err != nil {
 		log.Println(err)
 	}
-	return
 }
 
 // func processTVShow(pAth string) {
@@ -182,7 +181,6 @@ func picUpdateStatus() (updateStat bool) {
 	return
 }
 
-
 func setupLogging() {
 	logfile := os.Getenv("MEDIACENTER_LOG_BASE_PATH") + "/moviegobsMOV.log"
 	// If the file doesn't exist, create it or append to the file
@@ -191,7 +189,7 @@ func setupLogging() {
 		log.Fatal(err)
 	}
 	log.SetOutput(file)
-	log.Println("Mov logging started \n")
+	log.Println("Mov logging started")
 }
 
 //MovSetUp is exported to main
@@ -209,11 +207,17 @@ func MovSetUp() (ExStat int) {
 		log.Println(err)
 	}
 	err = sess.DB("movbsthumb").DropDatabase()
+	if err != nil {
+		log.Println(err)
+	}
 	sess.Close()
 	log.Println("moviegobs and movbsthumb dbs have been dropped")
 
 	//Check thumbnail dir create thumbs if empty
 	empty, err := isDirEmpty("/root/static")
+	if err != nil {
+		log.Println(err)
+	}
 	if empty {
 		filepath.Walk("/root/fsData/Posters2", PosterDirVisit)
 	} else {
