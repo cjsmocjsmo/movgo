@@ -12,7 +12,7 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
-var finished bool = false
+// var finished bool = false
 
 func scanFileNames() {
 	err := filepath.Walk(os.Getenv("MOVIEGOBS_MOVIES_PATH"), updateDirVisit)
@@ -76,7 +76,7 @@ func movNameInDb(fn string) (result bool) {
 // func ProcessMovs(fn string) {
 // 	isMovNameInDB := movNameInDb(fn)
 // 	if !isMovNameInDB {
-		
+
 // 	}
 
 // }

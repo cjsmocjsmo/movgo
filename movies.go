@@ -44,24 +44,18 @@ func moviesUUID() (UUID string) {
 
 //MOVI is exported because I want it so
 type MOVI struct {
-	ID             bson.ObjectId `bson:"_id,omitempty"`
-	DirPath        string        `bson:"dirpath"`
-	Filepath       string        `bson:"filepath"`
-	MediaID        string        `bson:"mediaid"`
-	Movname        string        `bson:"movname"`
-	Genre          string        `bson:"genre"`
-	Catagory       string        `bson:"catagory"`
-	MovFSPath      string        `bson:"movfspath"`
-	ThumbPath      string        `bson:"thumbpath"`
-	HTTPThumbPath  string		 `bson:"httpthumbpath"`
-	MovYear        string        `bson:"movyear"`
+	ID            bson.ObjectId `bson:"_id,omitempty"`
+	DirPath       string        `bson:"dirpath"`
+	Filepath      string        `bson:"filepath"`
+	MediaID       string        `bson:"mediaid"`
+	Movname       string        `bson:"movname"`
+	Genre         string        `bson:"genre"`
+	Catagory      string        `bson:"catagory"`
+	MovFSPath     string        `bson:"movfspath"`
+	ThumbPath     string        `bson:"thumbpath"`
+	HTTPThumbPath string        `bson:"httpthumbpath"`
+	MovYear       string        `bson:"movyear"`
 }
-
-// 
-// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movgo.go:52:14: undefined: httppicpath
-// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movgo.go:55:40: undefined: httppicpath
-// ../pkg/mod/github.com/cjsmocjsmo/movgo@v0.1.8/movies.go:71:26: undefined: httppicInfo
-// 
 
 // GetMovieInfo comment
 func GetMovieInfo(apath string, movpicInfo string, httppicInfo string) (MovInfo MOVI) {
@@ -75,7 +69,7 @@ func GetMovieInfo(apath string, movpicInfo string, httppicInfo string) (MovInfo 
 	MovInfo.MovFSPath = filesystempath
 	MovInfo.ThumbPath = movpicInfo
 	MovInfo.HTTPThumbPath = httppicInfo
-	
+
 	MovInfo.MovYear = getMovieYear(apath)
 	switch {
 	case strings.Contains(apath, "SciFi"):
@@ -130,6 +124,8 @@ func GetMovieInfo(apath string, movpicInfo string, httppicInfo string) (MovInfo 
 		MovInfo.Catagory = "Documentary"
 	case strings.Contains(apath, "TheRock"):
 		MovInfo.Catagory = "TheRock"
+	case strings.Contains(apath, "NicolasCage"):
+		MovInfo.Catagory = "NicolasCage"
 	}
 	return
 }
