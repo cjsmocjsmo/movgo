@@ -23,7 +23,7 @@ type ThumbInFo struct {
 	DirPATH       string        `bson:"dirpath"`
 	ThumbPath     string        `bson:"thumbpath"`
 	ThumbID       string        `bson:"thumbid"`
-	HTTPThumbPath string 		`bson:"httpthumbpath"`
+	HTTPThumbPath string        `bson:"httpthumbpath"`
 }
 
 //UUID holds the unique identifier for the file
@@ -62,6 +62,7 @@ func getThumbPath() (tpath string) {
 
 //CreateMoviesThumbnail exported to setup
 func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
+	fmt.Println(p)
 	dirpath, basepath, movname, ext := myPathSplit(p)
 	MSA := getServerAddr()
 	MSP := getServerPort()
@@ -72,8 +73,6 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 	var BP string = "/" + basepath
 	var thumbpathtwo string = MSA + ":" + MSP + MTPP + BP
 	var thumbpathone string = "./static/" + basepath
-
-
 
 	ThumbINFO.ID = bson.NewObjectId()
 	ThumbINFO.MovName = movname
@@ -119,6 +118,7 @@ func CreateMoviesThumbnail(p string) (ThumbINFO ThumbInFo) {
 
 //NoArtList exported to setup
 var NoArtList []string
+
 //a comment
 //FindPicPaths exported to setup
 func FindPicPaths(mpath string, noartpicpath string) (result, result2 string) {
@@ -148,4 +148,3 @@ func FindPicPaths(mpath string, noartpicpath string) (result, result2 string) {
 	fmt.Printf("this is result %s", result)
 	return
 }
-
