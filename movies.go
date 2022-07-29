@@ -128,6 +128,8 @@ func GetMovieInfo(apath string, movpicInfo string, httppicInfo string) (MovInfo 
 		MovInfo.Catagory = "NicolasCage"
 	case strings.Contains(apath, "Arnold"):
 		MovInfo.Catagory = "Arnold"
+	case strings.Contains(apath, "JamesBond"):
+		MovInfo.Catagory = "JamesBond"
 	}
 	return
 }
