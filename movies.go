@@ -15,10 +15,12 @@ func getmovName(movname string) (movName string) {
 	if strings.Contains(fname, "(") {
 		fi := strings.Index(fname, "(")
 		fdex := fi - 1
-		movName = fname[:fdex]
+		mn := fname[:fdex]
+		movName = strings.Replace(mn, " ", "", -1)
 	} else {
 		ddex := len(fname) - 11
-		movName = fname[ddex:]
+		mnn := fname[ddex:]
+		movName = strings.Replace(mnn, " ", "", -1)
 	}
 	return
 }
